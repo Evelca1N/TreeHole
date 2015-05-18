@@ -1,0 +1,110 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}樹洞君{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{#<style type=text/css>
+body {
+  background: url(/static/background2.jpg) repeat scroll 0% 0% transparent;
+}
+</style>
+#}
+
+
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('talks.index') }}">回到主頁 <span aria-hidden="true" class="glyphicon glyphicon-globe"></span></a>
+        </div>
+{#
+            <a class="navbar-brand" href="{{ url_for('talks.index') }}">察看留言</a>
+
+            <ul class="nav navbar-nav">
+
+                <li><a href="{{ url_for('talks.index') }}">還是回到主頁</a></li>
+#}
+                {% if current_user.is_authenticated() or current_user.is_admin  %}
+                <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('talks.user', username=current_user.username) }}">個人資料 <span aria-hidden="true" class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="{{ url_for('talks.new_talk') }}">說些什麼 <span aria-hidden="true" class="glyphicon glyphicon-comment"></span></a></li>
+                {% set moderation_count = current_user.for_moderation().count() %}
+                <li>
+                    <a href="{{ url_for('talks.moderate') }}">審核留言 <span aria-hidden="true" class="glyphicon glyphicon-saved"></span>
+                        {% if moderation_count %}
+                        <span class="badge badge-red">{{ moderation_count }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                    圖片 <span class="glyphicon glyphicon-camera" aria-hidden="true"></span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url_for('files.upload') }}">上傳圖片 <span aria-hidden="true" class="glyphicon glyphicon-cloud-upload"></span></a></li> 
+                        <li><a href="{{ url_for('files.show_pic') }}">圖片牆 <span aria-hidden="true" class="glyphicon glyphicon-picture"></span></a></li> 
+                        <li><a href="#">Action</a></li> 
+                    </ul>
+                </li>
+            </ul>
+            {#<ul class="nav navbar-nav navbar-right">
+
+                {# if current_user.is_admin %}
+                    {% set admin_moderation_count = current_user.for_moderation(True).count() %}
+                    <li>
+                        <a href="{{ url_for('talks.moderate_admin') }}">審核留言(特級)
+                            {% if admin_moderation_count %}
+                            <span class="badge badge-red">{{ admin_moderation_count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endif #}
+                {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if not current_user.is_authenticated() %}
+                <li><a href="{{ url_for('auth.login') }}">打靶歸來</a></li>
+                {% else %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ current_user.gravatar(size=18) }}"> {{ current_user.username }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('auth.logout') }}">打靶去嘍</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block page_header %}
+    <div class='page-header'>
+    <h2>樹洞菌肚裏的內容</h2><small></small>
+    </div>
+    {% endblock %}
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}

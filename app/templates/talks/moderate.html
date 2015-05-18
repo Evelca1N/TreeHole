@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block container %}
+{% block page_header %}
+<div class='page-header'>
+<h2>匿名的留言在下面</h2>
+</div>
+{% endblock %}
+{% block page_content %}
+<ul class="comment-list">
+{% for comment in comments %}
+    {% set talk = comment.talk %}
+    <li class="comment">
+        <p>In <a href="{{ url_for('talks.talk', id=talk.id) }}">{{ talk.title }}</a></p>
+        {% include "talks/_comment.html" %}
+    </li>
+{% else%}
+    <br>
+    <br>
+    <h4>現在還沒有外來留言哦</h4>
+{% endfor %}
+</ul>
+{% endblock %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% include "_api_client.html" %}
+{% endblock %}

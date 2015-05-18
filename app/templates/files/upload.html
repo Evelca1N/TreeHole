@@ -1,0 +1,40 @@
+<!doctype html>
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{%  block head %}
+{{ super() }}
+<link rel='stylesheet' type='text/css' href='{{ url_for('static', filename='styles.css') }}'>
+<style type='text/css'>
+input.form-control {
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: #fff;
+    width: 250px;
+}
+</style>
+{% endblock%}
+
+{% for message in get_flashed_messages() %}
+<div class='alert alert-success'>
+    <button type='button' class='close' data-dismiss='alert'>&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+{% block page_header %}
+<div class='page-header'>
+<h2>這裏只是一個超級簡陋的上傳點<small>還在開發中!</small></h2>
+</div>
+{#
+<html>
+<body>
+<form action='/save_file' method='post' enctype='multipart/form-data'>
+    <input type='file' name='uploaded_file' class="btn btn-default pull-left btn-lg">
+    <br>
+    <br>
+    <br>
+    <input value='上傳' type='submit' class='btn btn-default btn-sm' value='Upload'>
+</form>
+#}
+{{ wtf.quick_form(form, enctype='multipart/form-data') }}
+{% endblock %}

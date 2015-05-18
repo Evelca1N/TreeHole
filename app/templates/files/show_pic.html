@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block head %}
+{{ super() }}
+<link rel='stylesheet' type='text/css' href='{{ url_for('static', filename='styles.css') }}'
+<style type=text/css>
+</style>
+{% endblock %}
+
+{% block page_header %}
+{# for message in get_flashed_messages() %}
+<div class='alert alert-warning'>
+    <button type='button' class='close' data-dismiss='alert'> &times;</button>
+    {{ message }}
+</div>
+{% endfor #}
+<div class='page-header'>
+<h2> 下面是最初級的圖片牆哦 </h2>
+</div>
+{% endblock %}
+{% block page_content %}
+<div class="bs-example" data-example-id="default-well">
+<div class="row">
+{% for file_arg in file_args %}
+  <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+      <img src="{{ url_for('static', filename='upload/{}'.format(file_arg[0])) }}" alt="test">
+      {% if file_arg[1] %}
+      <a href={{ url_for('files.love_pic', pic_name=file_arg[0]) }}><div style="position:absolute; top:10%; left:80%;"><span aria-hidden="false" class="glyphicon glyphicon-heart">{{ file_arg[1] }}</span></div></a> 
+      {% else %}
+      <a href={{ url_for('files.love_pic', pic_name=file_arg[0]) }}><div style="position:absolute; top:10%; left:80%;"><span aria-hidden="false" class="glyphicon glyphicon-heart-empty">{{ file_arg[1] }}</span></div></a> 
+      {% endif %}
+    </a>
+  </div>
+{% else %}
+</div>
+</div>
+<small>还没有图片....点击右侧上传哦-><a href='{{ url_for('files.upload') }}'></small><h2>戳我</h2></a>
+{% endfor %}
+{#
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="{{ url_for('static', filename='1.jpg') }}" alt="...">
+      <div class="caption">
+        <h3>Thumbnail label</h3>
+        <p>hey</p>
+        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+#}
+{% endblock %}
