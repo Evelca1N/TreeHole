@@ -2,6 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
+<div class="cell" style="background-color: #fff; padding: 10px 10px 10px 20px;">
 <div class="page-header">
     {% include "talks/_talk_header.html" %}
 </div>
@@ -35,6 +36,8 @@
 {% endif %}
 <h3 id="comment-form">給作者留言</h3>
 {{ wtf.quick_form(form, action='#comment-form') }}
+</div>
+&nbsp;
 {% endblock %}
 
 {% block scripts %}

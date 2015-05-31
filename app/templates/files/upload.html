@@ -36,5 +36,10 @@ input.form-control {
     <input value='上傳' type='submit' class='btn btn-default btn-sm' value='Upload'>
 </form>
 #}
+{% endblock %}
+{% block page_content %}
+<div class="cell" style="background-color: #fff; padding: 10px 10px 10px 20px;">
 {{ wtf.quick_form(form, enctype='multipart/form-data') }}
+</div>
+&nbsp;
 {% endblock %}

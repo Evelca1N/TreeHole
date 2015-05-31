@@ -95,3 +95,26 @@ ul.comment-list li.comment:nth-child(even)
 .badge-red {
     background-color:#d44;
 }
+
+.user-profile {
+  width: 95%;
+  min-height: 140px;
+  left: 20px;
+  position: relative;
+}
+
+ul.talk-list {
+  width: 98%;
+  list-style-type: none;
+  padding: 0px;
+  position: relative;
+  left: 9px;
+}
+
+ul.comment-list {
+  width: 98%;
+  list-style-type: none;
+  padding: 0px;
+  position: relative;
+  left: 9px;
+}

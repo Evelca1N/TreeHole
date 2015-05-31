@@ -4,19 +4,77 @@
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-{#<style type=text/css>
-body {
-  background: url(/static/background2.jpg) repeat scroll 0% 0% transparent;
+
+<style type=text/css>
+#Wrapper {
+  background-color: #d5e6ef;
+  background-repeat: repeat-x, repeat-x;
+  background-size: 350px 350px;
 }
+
+.box {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.content {
+  position: relative;
+  width: 970px;
+  margin: 0px auto 0px auto;
+}
+
+a.tab_current:link, a.tab_current:visited, a.tab_current:active {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 13px;
+  padding: 5px 8px 5px 8px;
+  margin-right: 5px;
+  border-radius: 3px;
+  background-color: #334;
+  color: #fff;
+}
+
+a.tab:link, a.tab:visited, a.tab:active {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 13px;
+  padding: 5px 8px 5px 8px;
+  margin-right: 5px;
+  border-radius: 3px;
+  color: #555;
+}
+
+.inner {
+  padding: 10px;
+  font-size: 12px;
+  line-height: 150%;
+  text-align: left;
+}
+
+#Bottom {
+  border-top: 1px solid rgba(0, 0, 0, 0.22);
+  background-color: #fff;
+  text-align: center;
+  color: #999;
+}
+
+.navbar-default {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  height: 0px;
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+
 </style>
-#}
-
-
 {% endblock %}
 
+{% block body%}
+<div id='Wrapper'>
 {% block navbar %}
 <div class="navbar navbar-default" role="navigation">
-    <div class="container">
+    <div class="container" >
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -71,28 +129,53 @@ body {
                 {% endif %}
             <ul class="nav navbar-nav navbar-right">
                 {% if not current_user.is_authenticated() %}
-                <li><a href="{{ url_for('auth.login') }}">打靶歸來</a></li>
+                <li><a href="{{ url_for('auth.login') }}">登陆 <span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
                 {% else %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ current_user.gravatar(size=18) }}"> {{ current_user.username }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('auth.logout') }}">打靶去嘍</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">登出 <span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
                     </ul>
                 </li>
                 {% endif %}
             </ul>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    {% block page_header %}
+<div class="content">
+<div class='box'>
+<div class="inner" style="background-color: #fff; border-top-left-radius: 3px; border-top-right-radius: 3px;" id="Tabs">
+    <a href="#" class="tab_current">生活</a>
+    <a href="#" class="tab">创意</a>
+    <a href="#" class="tab">好玩</a>
+    <a href="#" class="tab">Apple</a>
+    <a href="#" class="tab">酷工作</a>
+    <a href="#" class="tab">交易</a>
+    <a href="#" class="tab">城市</a>
+    <a href="#" class="tab">问与答</a>
+    <a href="#" class="tab">最热</a>
+    <a href="#" class="tab">全部</a>
+    <a href="#" class="tab">R2</a>
+    <a href="#" class="tab">节点</a>
+    <a href="#" class="tab">关注</a>
+</div>
+<div class="cell" style="background-color: #f9f9f9; padding: 10px 10px 10px 20px;">
+  <a href="#">程序员</a> &nbsp; &nbsp; 
+  <a href="#">Python</a> 
+  &nbsp; &nbsp; 
+  <a href="#">iDev</a> 
+  &nbsp; &nbsp; 
+  <a href="#">Linux</a> 
+  &nbsp; &nbsp; 
+</div>
+    {# block page_header %}
+
     <div class='page-header'>
     <h2>樹洞菌肚裏的內容</h2><small></small>
     </div>
-    {% endblock %}
+    {% endblock #}
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -102,9 +185,35 @@ body {
 
     {% block page_content %}{% endblock %}
 </div>
+</div>
 {% endblock %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+
+</div>
+<div id="Bottom">
+    <div class="sep10"></div>
+            <a href="#" class="dark" target="_self">关于</a> &nbsp; 
+            <span class="snow">·</span> &nbsp; 
+             <a href="#" class="dark" target="_self">FAQ</a>
+                &nbsp; <span class="snow">·</span> 
+                &nbsp; 
+                <a href="#" class="dark" target="_self">API</a> 
+                &nbsp; 
+        <div class="sep5"></div>
+        Lovingly made by <b>Wyc</b>
+        <div class="sep20"></div>
+        <small style='color: #ccc;'><br>♥ Do have faith in what you're doing.</span>
+        <div class="sep20"></div>
+</div>
 {% block scripts %}
 {{ super() }}
 {{ moment.include_moment() }}
+{% endblock %}
 {% endblock %}

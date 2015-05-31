@@ -153,3 +153,13 @@ def unsubscribe(token):
     PendingEmail.remove(email)
     flash('You will not receive any more email notifications about this talk.')
     return redirect(url_for('talks.talk', id=talk.id))
+
+
+@talks.route('/love_talk', methods=['GET'])
+def love_talk():
+    talkId = request.args.get('talkId')
+    talk = Talk.query.filter_by(id=talkId).first_or_404()
+    talk.likes += 1
+    db.session.add(talk)
+    db.session.commit()
+    return redirect(url_for('talks.index'))

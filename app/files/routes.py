@@ -60,10 +60,10 @@ def show_pic():
         file_args.append((pic, pic_like))
     return render_template('files/show_pic.html', file_args=file_args)
 
-@files.route('/show_pic/<username>', methods=['GET', 'POST'])
-@login_required
-def show_ones_pic():
-    pass
+#@files.route('/show_pic/<username>', methods=['GET', 'POST'])
+#@login_required
+#def show_ones_pic():
+#    pass
 
 @files.route('/love_pic', methods=['GET'])
 def love_pic():

@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block page_header %}
-<div class='page-header'>
-<h2>說點什麼好呢...</h2><small>不知道的話今天吃了什麼吧!</small>
-</div>
-{% endblock %}
 {% block page_content %}
+<div class="cell" style="background-color: #fff; padding: 10px 10px 10px 20px;">
+<h2>说点什么好呢...</h2><small>不如就说说今天吃了什么吧!</small>
 {{ wtf.quick_form(form) }}
+</div>
+<br>
 {% endblock %}

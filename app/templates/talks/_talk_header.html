@@ -2,12 +2,21 @@
     {% if talk.author == current_user %}
     <a class="btn btn-primary pull-right" href="{{ url_for('talks.edit_talk', id=talk.id) }}">改動<span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></a>
     {% elif current_user.is_admin %}
-    <a class="btn btn-primary pull-right" href="{{ url_for('talks.edit_talk', id=talk.id) }}">改動<span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></a>
-    <a class="btn btn-danger pull-right" href="{{ url_for('talks.edit_talk', id=talk.id) }}">改動</a>
+    <a class="btn btn-danger pull-right" href="{{ url_for('talks.edit_talk', id=talk.id) }}">改動<span aria-hidden="true" class="glyphicon glyphicon-pencil"></span></a>
     {% endif %}
     <h2><a href="{{ url_for('talks.talk', id=talk.id) }}">{{ talk.title }}</a></h2>
     <h3>{{ talk.description }}</h3>
-    <div class="pull-right"><a href="{{ url_for('talks.talk', id=talk.id) }}#comments"><span class="label label-default">Comments: {{ talk.approved_comments().count() }}</span></a></div>
+    <div class="pull-right">
+        <span class="label label-danger">
+        <a href="{{ url_for('talks.love_talk', talkId=talk.id) }}#comments" style='color:#fff'>
+                <span aria-hidden="false" class="glyphicon glyphicon-heart"> {{ talk.likes }}</span>
+        </a>
+        | 
+        <a href="{{ url_for('talks.talk', id=talk.id) }}#comments" style='color:#fff;'>
+            <span class="glyphicon glyphicon-comment" aria-hidden="true"> {{ talk.approved_comments().count() }} </span>
+        </a>
+        </span>
+    </div>
     <p>
         <a href="{{ url_for('talks.user', username=talk.author.username) }}">{{ talk.author.username }}</a>  在
         {% if talk.venue_url %}

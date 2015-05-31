@@ -103,6 +103,7 @@ class Talk(db.Model):
     venue_url = db.Column(db.String(128))
     date = db.Column(db.DateTime())
     comments = db.relationship('Comment', lazy='dynamic', backref='talk')
+    likes = db.Column(db.Integer, default=0)
     emails = db.relationship('PendingEmail', lazy='dynamic', backref='talk')
 
     def approved_comments(self):
@@ -200,3 +201,6 @@ class PendingEmail(db.Model):
     @staticmethod
     def remove(email):
         PendingEmail.query.filter_by(email=email).delete()
+
+class Test(db.Model):
+    name = db.Column(db.Integer, primary_key=True)
