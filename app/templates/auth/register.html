@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
 <div class="cell" style="background-color: #fff;
-                    padding: 0px 10px 0px 20px;">
-    <div class="page-header">
-        <h1>Login</h1>
+                    padding: 0% 1% 0% 2%;">
+    <div class='page-header'>
+        <h3>用户申请</h3><small>请务必填写注册理由</small></h2>
     </div>
 {{ wtf.quick_form(form) }}
 </div>

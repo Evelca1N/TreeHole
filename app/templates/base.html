@@ -82,7 +82,7 @@ a.tab:link, a.tab:visited, a.tab:active {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('talks.index') }}">回到主頁 <span aria-hidden="true" class="glyphicon glyphicon-globe"></span></a>
+            <a class="navbar-brand" href="{{ url_for('talks.index')}}">回到主页 <span aria-hidden="true" class="glyphicon glyphicon-globe"></span></a>
         </div>
 {#
             <a class="navbar-brand" href="{{ url_for('talks.index') }}">察看留言</a>
@@ -93,24 +93,31 @@ a.tab:link, a.tab:visited, a.tab:active {
 #}
                 {% if current_user.is_authenticated() or current_user.is_admin  %}
                 <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('talks.user', username=current_user.username) }}">個人資料 <span aria-hidden="true" class="glyphicon glyphicon-user"></span></a></li>
-                <li><a href="{{ url_for('talks.new_talk') }}">說些什麼 <span aria-hidden="true" class="glyphicon glyphicon-comment"></span></a></li>
+                <li><a href="{{ url_for('talks.user',
+                    username=current_user.username) }}">个人资料 <span aria-hidden="true" class="glyphicon glyphicon-user"></span></a></li>
+                <li><a href="{{ url_for('talks.new_talk') }}">说些什么 <span aria-hidden="true" class="glyphicon glyphicon-comment"></span></a></li>
                 {% set moderation_count = current_user.for_moderation().count() %}
-                <li>
-                    <a href="{{ url_for('talks.moderate') }}">審核留言 <span aria-hidden="true" class="glyphicon glyphicon-saved"></span>
+                <li role='presentation' class='dorpdown'>
+                    <a class='dorpdown-toggle' data-toggle='dropdown' href="#" role='button' aria-expanded='false'>
+                        审核 <span aria-hidden="true" class="glyphicon
+                            glyphicon-saved"></span><span class='caret'></span>
                         {% if moderation_count %}
                         <span class="badge badge-red">{{ moderation_count }}</span>
                         {% endif %}
                     </a>
+                    <ul class='dropdown-menu' rolo='menu'>
+                        <li><a href="{{ url_for('talks.moderate')
+                            }}">留言审核</li></a>
+                        <li><a href='#'>新用户准入</a></li>
+                    </ul>
                 </li>
                 <li role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    圖片 <span class="glyphicon glyphicon-camera" aria-hidden="true"></span><span class="caret"></span>
+                    图片 <span class="glyphicon glyphicon-camera" aria-hidden="true"></span><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ url_for('files.upload') }}">上傳圖片 <span aria-hidden="true" class="glyphicon glyphicon-cloud-upload"></span></a></li> 
-                        <li><a href="{{ url_for('files.show_pic') }}">圖片牆 <span aria-hidden="true" class="glyphicon glyphicon-picture"></span></a></li> 
-                        <li><a href="#">Action</a></li> 
+                        <li><a href="{{ url_for('files.upload')}}">上传图片 <span aria-hidden="true" class="glyphicon glyphicon-cloud-upload"></span></a></li> 
+                        <li><a href="{{ url_for('files.show_pic')}}">图片墙 <span aria-hidden="true" class="glyphicon glyphicon-picture"></span></a></li> 
                     </ul>
                 </li>
             </ul>
@@ -130,6 +137,7 @@ a.tab:link, a.tab:visited, a.tab:active {
             <ul class="nav navbar-nav navbar-right">
                 {% if not current_user.is_authenticated() %}
                 <li><a href="{{ url_for('auth.login') }}">登陆 <span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+                <li><a href="{{ url_for('auth.register') }}">注册 (这里调下颜色)</a></li>
                 {% else %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ current_user.gravatar(size=18) }}"> {{ current_user.username }} <b class="caret"></b></a>
@@ -177,9 +185,13 @@ a.tab:link, a.tab:visited, a.tab:active {
     </div>
     {% endblock #}
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
+    <div class="cell" style="background-color: #fff;
+                    padding: 20px 10px 0px 20px;">
+
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
     </div>
     {% endfor %}
 

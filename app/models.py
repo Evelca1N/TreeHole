@@ -202,5 +202,9 @@ class PendingEmail(db.Model):
     def remove(email):
         PendingEmail.query.filter_by(email=email).delete()
 
-class Test(db.Model):
-    name = db.Column(db.Integer, primary_key=True)
+class registerUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(16), index=True)
+    password = db.Column(db.String(64))
+    email = db.Column(db.String(64), index=True)
+    reason = db.Column(db.String(64))

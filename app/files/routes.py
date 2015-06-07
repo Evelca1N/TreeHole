@@ -2,7 +2,6 @@ from flask import render_template, flash, redirect, url_for, request
 from flask.ext.login import current_user, login_required
 from .. import db
 from ..models import Pic
-# blueprint 
 from . import files
 
 from datetime import datetime
@@ -18,7 +17,8 @@ def upload():
 
         f = request.files[form.file_upload.name]
         filetype = f.filename[f.filename.index('.') + 1:]
-        time_seed = str(datetime.now()).replace('-', '').replace(':', '').replace(' ', '')[:-7]
+        time_seed = str(datetime.now()).replace('-', '')\
+                        .replace(':', '').replace(' ', '')[:-7]
         f.save('./app/static/upload/%s.%s' % (time_seed, filetype))
 
         pic = Pic(author=current_user,
@@ -38,7 +38,8 @@ def save_file():
     return 'save_file'
     f = request.files['uploaded_file']
     filetype = f.filename[f.filename.index('.') + 1:]
-    time_seed = str(datetime.now()).replace('-', '').replace(':', '').replace(' ', '')[:-7]
+    time_seed = str(datetime.now()).replace('-', '').\
+                        replace(':', '').replace(' ', '')[:-7]
     # path = './app/static/upload/%s.%s' % (time_seed, filetype)
     # return path
     try:

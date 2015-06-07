@@ -1,3 +1,6 @@
+# !/usr/bin/dev python
+# -*- coding:utf-8 -*-
+
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -15,6 +18,7 @@ mail = Mail()
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+login_manager.login_message = u'请登录以获得访问权限'
 
 
 def create_app(config_name):
