@@ -1,3 +1,4 @@
 *.pyc
+data-dev.sqlite
 *.swp
 .DS_Store
