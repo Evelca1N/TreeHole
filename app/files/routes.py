@@ -28,7 +28,7 @@ def upload():
         db.session.add(pic)
         db.session.commit()
         flash('Success!')
-        return redirect(url_for('files.show_pic'))
+        return redirect(url_for('files.showPic'))
     return render_template('files/upload.html', form=form)
 
 
@@ -48,20 +48,20 @@ def save_file():
     except Exception as e:
         flash('Failure!')
         pass
-    return redirect(url_for('files.show_pic'))
+    return redirect(url_for('files.showPic'))
 
-@files.route('/show_pic', methods=['GET'])
+@files.route('/showPic', methods=['GET'])
 @login_required
-def show_pic():
+def showPic():
     file_args = []
     pic_dir = url_for('static', filename='upload')
     pic_list = os.listdir('{}/app/static/upload'.format(os.getcwd()))
     for pic in pic_list:
         pic_like = Pic.query.filter_by(pic_name=pic).first_or_404().pic_like
         file_args.append((pic, pic_like))
-    return render_template('files/show_pic.html', file_args=file_args)
+    return render_template('files/showPic.html', file_args=file_args)
 
-#@files.route('/show_pic/<username>', methods=['GET', 'POST'])
+#@files.route('/showPic/<username>', methods=['GET', 'POST'])
 #@login_required
 #def show_ones_pic():
 #    pass
@@ -73,4 +73,4 @@ def love_pic():
     pic.pic_like += 1
     db.session.add(pic)
     db.session.commit()
-    return redirect(url_for('files.show_pic'))
+    return redirect(url_for('files.showPic'))
