@@ -5,6 +5,7 @@
 {% endblock%}
 {% block page_content %}
 <div class="page-header user-profile">
+<div class="cell" style="background-color: #fff; padding: 10px auto 10px auto;">
     <div class="user-avatar"><img src="{{ user.gravatar(128) }}"></div>
     {% if current_user == user %}
     <a class="btn btn-default pull-right" href="{{ url_for('talks.profile') }}">個人資料<span aria-hidden="true" class="glyphicon glyphicon-refresh"></span></a>
@@ -15,6 +16,7 @@
         {% if user.location %}<a href="http://maps.google.com?q={{ user.location }}">{{ user.location }}</a><br>{% endif %}
     </p>
     {% if user.bio %}<p>{{ user.bio }}</p>{% endif %}
+</div>
 </div>
 {% include "talks/_talks.html" %}
 {% if talks %}

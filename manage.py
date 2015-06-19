@@ -45,15 +45,23 @@ def adduser(email, username, admin=False):
 
 @manager.command
 def db_up():
+    """ set up & refresh database """
     db.create_all()
     print 'Database was set up.'
 
 
 @manager.command
 def del_all():
+    """ drop all database """
     db.drop_all()
     print 'All data was wiped out.'
 
+
+"""
+@manager.option('-n', '--name', help='your name')
+def yo(name):
+    print name
+"""
 
 if __name__ == '__main__':
     manager.run()
