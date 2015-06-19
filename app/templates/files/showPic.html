@@ -26,9 +26,9 @@
     <a href="#" class="thumbnail">
       <img src="{{ url_for('static', filename='upload/{}'.format(file_arg[0])) }}" alt="test">
       {% if file_arg[1] %}
-      <a href={{ url_for('files.love_pic', pic_name=file_arg[0]) }}><div style="position:absolute; top:15%; left:75%;"><span aria-hidden="false" class="glyphicon glyphicon-heart">{{ file_arg[1] }}</span></div></a> 
+      <a href={{ url_for('files.lovePic', pic_name=file_arg[0]) }}><div style="position:absolute; top:15%; left:75%;"><span aria-hidden="false" class="glyphicon glyphicon-heart">{{ file_arg[1] }}</span></div></a> 
       {% else %}
-      <a href={{ url_for('files.love_pic', pic_name=file_arg[0]) }}><div style="position:absolute; top:10%; left:80%;"><span aria-hidden="false" class="glyphicon glyphicon-heart-empty"></span></div></a> 
+      <a href={{ url_for('files.lovePic', pic_name=file_arg[0]) }}><div style="position:absolute; top:10%; left:80%;"><span aria-hidden="false" class="glyphicon glyphicon-heart-empty"></span></div></a> 
       {% endif %}
     </a>
   </div>

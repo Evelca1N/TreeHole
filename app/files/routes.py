@@ -66,8 +66,8 @@ def showPic():
 #def show_ones_pic():
 #    pass
 
-@files.route('/love_pic', methods=['GET'])
-def love_pic():
+@files.route('/lovePic', methods=['GET'])
+def lovePic():
     pic_name = request.args.get('pic_name')
     pic = Pic.query.filter_by(pic_name=pic_name).first_or_404()
     pic.pic_like += 1
