@@ -93,7 +93,6 @@ ul.comment-list li.comment:nth-child(even)
 }
 
 .user-profile {
-  width: 95%;
   min-height: 140px;
   position: relative;
 }

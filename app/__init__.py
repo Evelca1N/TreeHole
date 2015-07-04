@@ -8,15 +8,14 @@ from flask.ext.login import LoginManager
 from flask.ext.moment import Moment
 from flask.ext.pagedown import PageDown
 from config import config
+from flask_wtf.csrf import CsrfProtect
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 moment = Moment()
 pagedown = PageDown()
-
+csrf = CsrfProtect()
 login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
-login_manager.login_message = u'请登录以获得访问权限'
 
 
 def create_app(config_name):
@@ -37,6 +36,10 @@ def create_app(config_name):
     moment.init_app(app)
     pagedown.init_app(app)
     login_manager.init_app(app)
+    csrf.init_app(app)
+
+    login_manager.login_view = 'auth.login'
+    login_manager.login_message = u'请登录以获得访问权限'
 
     from .talks import talks as talks_blueprint
     app.register_blueprint(talks_blueprint)

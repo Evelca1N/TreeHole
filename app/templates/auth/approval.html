@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{{ super() }}
+<style type='text/css'>
+
+.btn-primary {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+  background-color: #60b044;
+  background-image: -webkit-linear-gradient(#8add6d, #60b044);
+  background-image: linear-gradient(#8add6d, #60b044);
+  border-color: #5ca941;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0px 0px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+</style>
+{% endblock %}
+
+{% block page_content %}
+<ul class='talk-list'>
+    {% for register in registers %}
+    <li class='talk'>
+    {{ register.username }}, {{ register.email }}, {{ register.reason}}
+    <div class="pull-right">
+        <a class="btn btn-primary api-approve" href="#">
+            <span class="glyphicon glyphicon-ok"></span> Approve
+        </a>
+        <a class="btn btn-danger api-delete" href="#">
+            <span class="glyphicon glyphicon-trash"></span> Delete
+        </a>
+    </div>
+    </li>
+    {% endfor %}
+{% endblock%}

@@ -3,9 +3,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    WTF_CSRF_SECRET_KEY = os.environ.get('SECRET_KEY')
+    CSRF_ENABLED = True
     TALKS_PER_PAGE = 50
     COMMENTS_PER_PAGE = 100
-
+    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
@@ -19,6 +21,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or 't0p s3cr3t'
+    WTF_CSRF_SECRET_KEY = os.environ.get('SECRET_KEY') or 't0p s3cr3t'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
     MAIL_FLUSH_INTERVAL = 60  # one minute
@@ -43,4 +46,3 @@ config = {
 
     'default': DevelopmentConfig
 }
-

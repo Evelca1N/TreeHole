@@ -70,7 +70,8 @@ def register():
     return render_template('auth/register.html', form=form)
 
 
-@auth.route('/user_aproval')
+@auth.route('/userAproval')
 def aproval():
     """ Get and Show users list which are not granted. """
-    return 'hey'
+    registers = registerUser.query.all()
+    return render_template('auth/approval.html', registers=registers)

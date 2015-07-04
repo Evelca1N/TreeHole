@@ -10,10 +10,9 @@ if os.path.exists('.env'):
             os.environ[var[0]] = var[1]
 
 from app import create_app
-from flask.ext.script import Manager
+from flask.ext.script import Manager, prompt_bool
 from app import db
 from app.models import User
-
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 
@@ -53,8 +52,9 @@ def db_up():
 @manager.command
 def del_all():
     """ drop all database """
-    db.drop_all()
-    print 'All data was wiped out.'
+    if prompt_bool('Sure to drop all data ? '):
+        db.drop_all()
+        print 'All data was wiped out.'
 
 
 """

@@ -1,10 +1,11 @@
 {% extends "bootstrap/base.html" %}
+{% from "bootstrap/utils.html" import flashed_messages, icon, form_button %}
 
 {% block title %}樹洞君{% endblock %}
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style type=text/css>
 #Wrapper {
   background-color: #d5e6ef;
@@ -107,7 +108,7 @@ a.tab:link, a.tab:visited, a.tab:active {
                     <ul class='dropdown-menu' rolo='menu'>
                         <li><a href="{{ url_for('talks.moderate')
                             }}">留言审核</li></a>
-                        <li><a href='#'>新用户准入</a></li>
+                        <li><a href='{{ url_for('auth.aproval') }}'>新用户准入</a></li>
                     </ul>
                 </li>
                 <li role="presentation" class="dropdown">
@@ -136,7 +137,7 @@ a.tab:link, a.tab:visited, a.tab:active {
             <ul class="nav navbar-nav navbar-right">
                 {% if not current_user.is_authenticated() %}
                 <li><a href="{{ url_for('auth.login') }}">登陆 <span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
-                <li><a href="{{ url_for('auth.register') }}">注册 (这里调下颜色)</a></li>
+                <li style="color:#fff;"><a href="{{ url_for('auth.register') }}" >注册 </a></li>
                 {% else %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ current_user.gravatar(size=18) }}"> {{ current_user.username }} <b class="caret"></b></a>
@@ -167,17 +168,7 @@ a.tab:link, a.tab:visited, a.tab:active {
     <h2>樹洞菌肚裏的內容</h2><small></small>
     </div>
     {% endblock #}
-    {% for message in get_flashed_messages() %}
-    <div class="cell" style="background-color: #fff;
-                    padding: 20px 10px 0px 20px;">
-
-        <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ message }}
-        </div>
-    </div>
-    {% endfor %}
-
+    {{ flashed_messages() }}
     {% block page_content %}{% endblock %}
 </div>
 </div>
